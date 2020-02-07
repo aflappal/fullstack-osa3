@@ -1,0 +1,27 @@
+{
+  "name": "fullstack-osa3",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aflappal/fullstack-osa3.git"
+  },
+  "author": "aflappal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aflappal/fullstack-osa3/issues"
+  },
+  "homepage": "https://github.com/aflappal/fullstack-osa3#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
