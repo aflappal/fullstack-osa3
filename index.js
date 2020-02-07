@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 const app = express();
 
 // expecting req.body to be set, so have to add morgan after the json middleware
@@ -12,6 +13,7 @@ morgan.token('post-data', (req, res) => {
 
 const myfmt = morgan.tiny + ' :post-data';
 
+app.use(cors());
 app.use(express.json());
 app.use(morgan(myfmt));
 
@@ -92,5 +94,5 @@ app.get('/info', (req, res) => {
         + new Date());
 });
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`app listening on ${PORT}`));
