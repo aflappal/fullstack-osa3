@@ -2,8 +2,18 @@ const express = require('express');
 const morgan = require('morgan');
 const app = express();
 
+// expecting req.body to be set, so have to add morgan after the json middleware
+morgan.token('post-data', (req, res) => {
+    if (req.method === "POST")
+        return JSON.stringify(req.body);
+    else
+        return ''
+});
+
+const myfmt = morgan.tiny + ' :post-data';
+
 app.use(express.json());
-app.use(morgan('tiny'));
+app.use(morgan(myfmt));
 
 let records = [
     {
