@@ -44,10 +44,10 @@ app.get('/api/persons', (req, res) => {
 
 app.get('/api/persons/:id', (req, res) => {
     const id = Number(req.params.id);
-    const persons = records.find(p => p.id === id);
+    const person = records.find(p => p.id === id);
     
-    if (persons)
-        res.json(persons);
+    if (person)
+        res.json(person);
     else
         res.status(404).end();
 });
