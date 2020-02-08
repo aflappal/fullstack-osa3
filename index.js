@@ -1,7 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const app = express();
+const Person = require('./models/person');
 
 // expecting req.body to be set, so have to add morgan after the json middleware
 morgan.token('post-data', (req, res) => {
@@ -42,7 +44,9 @@ let records = [
 ];
 
 app.get('/api/persons', (req, res) => {
-    res.json(records);
+    Person.find({}).then(persons => {
+        res.json(persons.map(p => p.toJSON()));
+    });
 });
 
 app.get('/api/persons/:id', (req, res) => {
