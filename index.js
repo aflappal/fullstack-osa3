@@ -103,6 +103,30 @@ app.get('/info', (req, res) => {
         + new Date());
 });
 
+app.put('/api/persons/:id', (req, res, next) => {
+    const body = req.body;
+
+    if (!body.name) {
+        return res.status(400).json({error: 'name missing'});
+    }
+    if (!body.number) {
+        return res.status(400).json({error: 'number missing'});
+    }
+
+    const record = {
+        name: body.name,
+        number: body.number
+    };
+
+    Person.findByIdAndUpdate(req.params.id, record, { new: true })
+        .then(updatedRec => {
+            console.log('Updated record', record);
+            res.json(updatedRec.toJSON());
+        })
+        .catch(error => next(error));
+});
+
+
 const errorHandler = (error, req, res, next) => {
     console.log(error.message);
 
