@@ -99,8 +99,11 @@ app.post('/api/persons', (req, res) => {
 
 app.get('/info', (req, res) => {
     res.writeHead(200, {'Content-Type': 'text/plain'});
-    return res.end(`Phonebook has info for ${records.length} people\n`
-        + new Date());
+    Person.estimatedDocumentCount()
+        .then(count => {
+            return res.end(`Phonebook has info for ${count} people\n`
+                + new Date());
+        });
 });
 
 app.put('/api/persons/:id', (req, res, next) => {
