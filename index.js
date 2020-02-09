@@ -6,11 +6,11 @@ const app = express();
 const Person = require('./models/person');
 
 // expecting req.body to be set, so have to add morgan after the json middleware
-morgan.token('post-data', (req, res) => {
-    if (req.method === "POST")
+morgan.token('post-data', (req) => {
+    if (req.method === 'POST')
         return JSON.stringify(req.body);
     else
-        return ''
+        return '';
 });
 
 const myfmt = morgan.tiny + ' :post-data';
@@ -22,23 +22,23 @@ app.use(morgan(myfmt));
 
 let records = [
     {
-        name: "Arto Hellas",
-        number: "040-123456",
+        name: 'Arto Hellas',
+        number: '040-123456',
         id: 1
     },
     {
-        name: "Ada Lovelace",
-        number: "39-44-5323523",
+        name: 'Ada Lovelace',
+        number: '39-44-5323523',
         id: 2
     },
     {
-        name: "Dan Abramov",
-        number: "12-43-234345",
+        name: 'Dan Abramov',
+        number: '12-43-234345',
         id: 3
     },
     {
-        name: "Mary Poppendieck",
-        number: "39-23-6423122",
+        name: 'Mary Poppendieck',
+        number: '39-23-6423122',
         id: 4
     }
 ];
@@ -64,7 +64,7 @@ app.get('/api/persons/:id', (req, res, next) => {
 
 app.delete('/api/persons/:id', (req, res, next) => {
     Person.findByIdAndRemove(req.params.id)
-        .then(person => {
+        .then(() => {
             res.status(204).end();
         })
         .catch(error => {
@@ -84,7 +84,7 @@ app.post('/api/persons', (req, res, next) => {
         .then(savedRec => {
             records = records.concat(record);
             console.log('Added record', record);
-            res.json(record.toJSON());
+            res.json(savedRec.toJSON());
         })
         .catch(error => next(error));
 });
